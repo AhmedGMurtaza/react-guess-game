@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
+import Header from './Header';
 
 class Game extends Component {
     state = {
@@ -17,10 +18,9 @@ class Game extends Component {
 
         // random Bricks Values
         const bricksVals = [];
-        for (let i = 0; i < 20; i++) {
+        for (let i = 0; i < 9; i++) {
             let t = this.checkDuplicate(bricksVals);        
             bricksVals.push(t);
-            if(bricksVals.length == 9) break;
         }
 
         this.setState({
@@ -30,38 +30,37 @@ class Game extends Component {
     }
 
     checkDuplicate = (bricksVals) => {
-        let val = Math.floor((Math.random() * 15) + 1);
-        let na = bricksVals.find(item => item === val);
-        console.log(na);
+        let val = Math.floor((Math.random() * 15) + 1),
+            na = bricksVals.find(item => item === val);
         if(na){
-            console.log('if');
-            this.checkDuplicate(bricksVals);
+            return this.checkDuplicate(bricksVals);
         }
         else{
-            console.log(na);
             return val;
         }
     }
 
 
     revealBrick = (i) => {
+        i -= 3;
         const clickedVal = this.state.bricksVals[i];
-        console.log(clickedVal);
     }
 
     render() {
         const { bricksVals, target } = this.state; 
         return(
             <div className="content">
-                <h2>Your Target: <span>{target}</span></h2>
+                <Header target={target} />
                 <div className="wrapper">
                     {
                         bricksVals.map((brick, index) =>
                             <div
-                                key={brick}
-                                className="brick"
+                                key={brick + 3}
+                                className={`brick`}
                                 onClick={() => this.revealBrick(index)}
-                            >{brick}</div>)
+                            >
+                                <span>{brick}</span>
+                            </div>)
                     }
                 </div>
             </div>

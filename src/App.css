@@ -32,14 +32,14 @@ body {
 } */
 
 .content {
-    border: 1px solid red;
     width: 960px;
     margin: 0 auto;
 }
 
 .content h2 {
-    font-size: 22px;
+    font-size: 27px;
     text-align: center;
+    margin: 22px 0;
 }
 
 .content h2 span {
@@ -47,11 +47,11 @@ body {
     border-radius: 5px;
     padding: 10px;
     color: #ffffff;
+    display: inline-block;
 }
 
 .wrapper {
     margin: 0 auto;
-    border: 1px dotted red;
     width: 500px;
     display: flex;
     flex-wrap: wrap;
@@ -78,4 +78,12 @@ body {
 
 .brick:active {
     background: #e0af0d;
+}
+
+.show>span {
+    display: flex;
+}
+
+.hide>span {
+    display: none;
 }
