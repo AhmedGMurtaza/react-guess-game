@@ -7,7 +7,6 @@ body {
     background-color: #222;
     padding: 10px;
     color: white;
-    margin-bottom: 10px;
 }
 
 .App-title {
@@ -60,7 +59,7 @@ body {
 }
 
 .wrapper {
-    margin: 0 auto;
+    margin: 10px auto;
     width: 500px;
     display: flex;
     flex-wrap: wrap;
@@ -88,9 +87,10 @@ body {
     display: none;
 }
 
-/* .show{ display: flex; } */
+.show{ display: flex; }
 
-/* .hide{ display: none; } */
+.scoreboard.hide,
+.wrapper.hide{ display: none; }
 
 .brick:hover {
     background: #fccf3a;
@@ -107,4 +107,26 @@ body {
 
 .hide>span {
     display: none;
+}
+
+.scoreboard-heading{
+    padding:10px;
+    background: #fccf3a;
+    margin: 0 !important;
+}
+
+button{
+    border-radius:5px;
+    padding:22px;
+    font-size:22px;
+    font-weight:bold;
+    background: #fccf3a;
+    box-shadow: 1px 2px 5px #cccccc;
+    border:0;
+    margin: 0 auto; 
+}
+
+.scoreboard * {
+    text-align: center;
+    display:block;
 }
