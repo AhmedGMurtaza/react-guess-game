@@ -5,8 +5,7 @@ body {
 
 .App-header {
     background-color: #222;
-    height: 150px;
-    padding: 20px;
+    padding: 10px;
     color: white;
     margin-bottom: 10px;
 }
@@ -21,6 +20,16 @@ body {
     font-size: large;
 }
 
+.score{
+    width: 500px;
+    margin:0 auto;
+    display:flex;
+    justify-content: space-between;
+}
+
+.score > *{
+    width:50%;
+}
 
 /* @keyframes App-logo-spin {
     from {
@@ -70,6 +79,18 @@ body {
     justify-content: center;
     cursor: pointer;
 }
+
+.brick.show span{
+    display: block;
+}
+
+.brick.hide span{
+    display: none;
+}
+
+/* .show{ display: flex; } */
+
+/* .hide{ display: none; } */
 
 .brick:hover {
     background: #fccf3a;

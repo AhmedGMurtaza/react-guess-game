@@ -4,12 +4,19 @@ import Header from './Header';
 
 class Game extends Component {
     state = {
-        won:0,
-        failed:0,
         total:0,
         bricksVals:[],
         target:null,
-        selectedBricks:[]
+        selectedBricks:[],
+        result:{ won:0, loss:0 },
+        gameCount: 0
+    }
+
+    componentDidUpdate(){
+        const {total,target} = this.state;
+        if(total >= target ){
+            this.handleResult(total);
+        }
     }
 
     componentDidMount() {
@@ -40,29 +47,85 @@ class Game extends Component {
         }
     }
 
+    handleResult = () => {
+        const {total, target,result} = this.state;
+
+        if(total === target){
+            console.log('won');
+            this.setState(prev=>{
+                return {
+                    result:{
+                        won: prev.result.won + 1
+                    },
+                    total:0,
+                    selectedBricks:[],
+                    gameCount : prev.gameCount + 1
+                }
+            })
+        }
+        else{
+            console.log('loss');
+            this.setState(prev=>{
+                return {
+                    result:{
+                        loss: prev.result.loss + 1
+                    },
+                    total:0,
+                    selectedBricks:[],
+                    gameCount : prev.gameCount + 1
+                }
+            })
+        }
+
+    }
 
     revealBrick = (i) => {
-        i -= 3;
-        const clickedVal = this.state.bricksVals[i];
+        let {selectedBricks, total, bricksVals, target} = this.state;
+        if(!selectedBricks.includes(i)){
+            this.setState((prev)=>{
+                return {
+                    total: prev.total + bricksVals[i]
+                }
+            });
+            selectedBricks.push(i);
+        }
     }
 
     render() {
-        const { bricksVals, target } = this.state; 
+        const { 
+            bricksVals, 
+            target, 
+            total, 
+            selectedBricks, 
+            gameCount, 
+            result 
+        } = this.state; 
+        
         return(
             <div className="content">
-                <Header target={target} />
-                <div className="wrapper">
+                <Header target={target} sum={total} result={result}/>
+                <div className={`wrapper ${ gameCount > 3 ? 'hide' : 'show'}`}>
                     {
                         bricksVals.map((brick, index) =>
                             <div
                                 key={brick + 3}
-                                className={`brick`}
+                                className={`brick ${(selectedBricks.includes(index))?'show':'hide'}`}
                                 onClick={() => this.revealBrick(index)}
                             >
                                 <span>{brick}</span>
                             </div>)
                     }
                 </div>
+                {/* <div className="score" className={`${ gameCount > 3 ? 'hide' : 'show'}`}>
+                    <h2>
+                        Score Board
+                    </h2>  
+                    {
+                        (result.won === 3)? 
+                            <h1>Congratulations! You Won</h1> :
+                            <h1>You Loss! :(</h1>
+                    }
+                </div> */}
             </div>
         );
     }
