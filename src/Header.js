@@ -7,9 +7,11 @@ const Header = (props) => {
             <div className="score">
                 <h2>Target: <span>{props.target}</span></h2>
                 <h2>Sum: <span>{props.sum}</span></h2>
-                <h2>Won: <span>{props.result.won}</span></h2>
-                <h2>Loss: <span>{props.result.loss}</span></h2>
+                <div className="result-bar">
+                    <h2>Won: <span>{props.result.won}</span></h2>
+                    <h2>Loss: <span>{props.result.loss}</span></h2>
                 </div>
+            </div>
             </header>
     );
 }

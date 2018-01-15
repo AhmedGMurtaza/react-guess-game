@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 // import PropTypes from 'prop-types';
 import Header from './Header';
 
@@ -9,7 +9,8 @@ class Game extends Component {
         total:0,
         target:0,
         result:{ won:0, loss:0 },
-        gameCount: 0
+        gameCount: 0,
+        targetCrossed:false
     }
 
     componentDidMount() {
@@ -26,10 +27,6 @@ class Game extends Component {
         if(target === 0 || bricksVals.length < 1){
             this.initializeGame();
         }
-
-        if(total >= target ){
-            this.handleResult(total);
-        }
     }
 
     restart = () =>{
@@ -39,7 +36,8 @@ class Game extends Component {
             total:0,
             target:0,
             result:{ won:0, loss:0 },
-            gameCount: 0
+            gameCount: 0,
+            targetCrossed:false
         })
         this.initializeGame();
     }
@@ -73,38 +71,49 @@ class Game extends Component {
     }
 
     // when target achieved
-    handleResult = () => {
+    handleResult = (t) => {
         const {total, target,result} = this.state;
-
-        if(total === target && total > 1){
-            this.setState((prev,props)=>{
-                return {
-                    result:{
-                        won: prev.result.won + 1,
-                        loss: prev.result.loss
-                    },
-                    bricksVals:[],
-                    total:0,
-                    selectedBricks:[],
-                    gameCount : prev.gameCount + 1
-                }
+        
+        if(t === target){
+            this.setState(prev=>{
+                return{ targetCrossed: !prev.targetCrossed }
             })
+            setTimeout(()=>{
+                this.setState((prev,props)=>{
+                    return {
+                        result:{
+                            won: prev.result.won + 1,
+                            loss: prev.result.loss
+                        },
+                        bricksVals:[],
+                        total:0,
+                        selectedBricks:[],
+                        gameCount : prev.gameCount + 1,
+                        targetCrossed:false
+                    }
+                })
+            },2700);
         }
-        else if(total > target){
-            this.setState((prev,props)=>{
-                return {
-                    result:{
-                        won: prev.result.won,
-                        loss: prev.result.loss + 1
-                    },
-                    total:0,
-                    bricksVals:[],
-                    selectedBricks:[],
-                    gameCount : prev.gameCount + 1
-                }
+        else if(t > target){
+            this.setState(prev=>{
+                return{ targetCrossed: !prev.targetCrossed }
             })
+            setTimeout(()=>{
+                this.setState((prev,props)=>{
+                    return {
+                        result:{
+                            won: prev.result.won,
+                            loss: prev.result.loss + 1
+                        },
+                        total:0,
+                        bricksVals:[],
+                        selectedBricks:[],
+                        gameCount : prev.gameCount + 1,
+                        targetCrossed:false
+                    }
+                })
+            },2700);
         }
-
     }
 
     // on brick click
@@ -116,6 +125,12 @@ class Game extends Component {
                     total: prev.total + bricksVals[i]
                 }
             });
+            
+            let t = total + bricksVals[i];
+            if(t >= target ){
+                // console.log(t >= target);
+                this.handleResult(t);
+            }
             selectedBricks.push(i);
         }
     }
@@ -127,28 +142,35 @@ class Game extends Component {
             total, 
             selectedBricks, 
             gameCount, 
-            result 
+            result,
+            targetCrossed 
         } = this.state; 
         
         return(
+            <Fragment>
+            <Header target={target} sum={total} result={result}/>
             <div className="content">
-                <Header target={target} sum={total} result={result}/>
+                <div className={`loop-break ${targetCrossed?'':'hide'}`}> <div>
+                    <h2>{total===target?'won':'loss'} </h2></div>
+                </div>
                 <div className={`wrapper ${ gameCount >= 3 ? 'hide' : ''}`}>
                     {
                         bricksVals.map((brick, index) =>
                             <div
                                 key={brick + 3}
-                                className={`brick ${ selectedBricks.includes(index) ? 'show' : 'hide'}`}
+                                className={`brick ${ selectedBricks.includes(index) ? '' : 'hide'}`}
                                 onClick={() => this.revealBrick(index)}
                             >
                                 <span>{brick}</span>
                             </div>)
                     }
                 </div>
+            </div>
                 <div className={`scoreboard ${ gameCount >= 3 ? '' : 'hide'}`}>
                     <h2 className="scoreboard-heading">
                         Score Board
                     </h2>  
+                    <div className="content">
                     {   result.won === 3? 
                         <h1>Congratulations! You Won</h1> :
                         <h1>You Loss! :(</h1>
@@ -156,6 +178,7 @@ class Game extends Component {
                     <button onClick={this.restart}>Play Again!</button>
                 </div>
             </div>
+            </Fragment>
         );
     }
 }

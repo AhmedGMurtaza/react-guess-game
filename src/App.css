@@ -1,22 +1,19 @@
 body {
     margin: 0;
     font-family: verdana;
+    background: #eaeaea;
 }
 
 .App-header {
-    background-color: #222;
-    padding: 10px;
-    color: white;
+    background-color: #f5c21a;
+    padding: 5px 10px;
+    color: rgb(22, 22, 22);
 }
 
 .App-title {
-    font-size: 44px;
+    font-size: 34px;
     text-align: center;
     /* animation: App-logo-spin infinite 20s linear; */
-}
-
-.App-intro {
-    font-size: large;
 }
 
 .score{
@@ -24,12 +21,36 @@ body {
     margin:0 auto;
     display:flex;
     justify-content: space-between;
+    flex-wrap:wrap;
 }
 
 .score > *{
-    width:50%;
+    width:49%;
 }
 
+.score h2{
+    font-size: 22px;
+    text-align: left;
+}
+
+.score > h2:nth-child(2){
+    text-align: right;
+}
+    
+.score > h2 span {
+    background: #f14e4e;
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-size: 18px;
+    color: #ffffff;
+    display: inline-block;
+}
+
+.result-bar h2{
+    margin: 5px 0 0 0;
+    text-align: left;
+    font-weight: normal;
+}
 /* @keyframes App-logo-spin {
     from {
         transform: rotate(0deg);
@@ -44,20 +65,6 @@ body {
     margin: 0 auto;
 }
 
-.content h2 {
-    font-size: 27px;
-    text-align: center;
-    margin: 22px 0;
-}
-
-.content h2 span {
-    background: #f14e4e;
-    border-radius: 5px;
-    padding: 10px;
-    color: #ffffff;
-    display: inline-block;
-}
-
 .wrapper {
     margin: 10px auto;
     width: 500px;
@@ -66,17 +73,41 @@ body {
     justify-content: space-between;
 }
 
+.loop-break{
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background: rgba(0,0,0,0.72);
+}
+
+.loop-break div{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.loop-break h2{
+    color: #ffffff;
+    font-size: 72px;
+}
+
+
 .brick {
     margin-bottom: 10px;
     height: 160px;
     width: 160px;
     border-radius: 10px;
-    background: #f5c21a;
+    background: #000000;
     display: flex;
     align-items: center;
     font-size: 72px;
     justify-content: center;
     cursor: pointer;
+    color: #ffffff;
 }
 
 .brick.show span{
@@ -87,18 +118,25 @@ body {
     display: none;
 }
 
+.brick.hide:after{
+    content:'Click Me';
+    color:rgba(255, 232, 128,0.4);
+    font-size: 22px;
+}
+    
 .show{ display: flex; }
 
 .scoreboard.hide,
-.wrapper.hide{ display: none; }
+.wrapper.hide,
+.loop-break.hide{ display: none; }
 
 .brick:hover {
-    background: #fccf3a;
+    background: #3d3d3d;
     box-shadow: 1px 2px 5px #cccccc;
 }
 
 .brick:active {
-    background: #e0af0d;
+    background: #050505;
 }
 
 .show>span {
@@ -111,8 +149,9 @@ body {
 
 .scoreboard-heading{
     padding:10px;
-    background: #fccf3a;
+    background: #000000;
     margin: 0 !important;
+    color: #ffffff;
 }
 
 button{
@@ -124,6 +163,11 @@ button{
     box-shadow: 1px 2px 5px #cccccc;
     border:0;
     margin: 0 auto; 
+    cursor: pointer;
+}
+
+button:hover{
+    box-shadow: 2px 2px 15px rgb(184, 183, 183);
 }
 
 .scoreboard * {
