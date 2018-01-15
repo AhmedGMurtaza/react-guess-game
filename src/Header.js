@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const Header = (props) => {
     return (
@@ -17,3 +18,10 @@ const Header = (props) => {
 }
 
 export default Header;
+
+Header.PropTypes = {
+    target: PropTypes.number,
+    sum: PropTypes.number,
+    won: PropTypes.won,
+    loss: PropTypes.loss
+}
