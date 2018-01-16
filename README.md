@@ -1,4 +1,4 @@
 # react-guess-game
 Number Guessing game using ReactJS
 
-![screenshot](https://github.com/ahmedgmurtaza/react-guess-game/master/screenshot.png)
+![screenshot](https://github.com/AhmedGMurtaza/react-guess-game/blob/master/screenshot.png)
