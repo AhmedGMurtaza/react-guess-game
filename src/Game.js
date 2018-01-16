@@ -21,7 +21,7 @@ class Game extends Component {
 
     // runs on every state change and button click
     componentDidUpdate(){
-        const {total, target, bricksVals, gameCount} = this.state;
+        const { target, bricksVals } = this.state;
         //new to run on every brick click
         if(target === 0 || bricksVals.length < 1){
             this.initializeGame();
@@ -71,7 +71,7 @@ class Game extends Component {
 
     // when target achieved
     handleResult = (t) => {
-        const {total, target,result} = this.state;
+        const { target } = this.state;
         
         if(t === target){
             this.setState(prev=>{
@@ -127,7 +127,6 @@ class Game extends Component {
             
             let t = total + bricksVals[i];
             if(t >= target ){
-                // console.log(t >= target);
                 this.handleResult(t);
             }
             selectedBricks.push(i);

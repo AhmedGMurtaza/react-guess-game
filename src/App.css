@@ -51,19 +51,6 @@ body {
     text-align: left;
     font-weight: normal;
 }
-/* @keyframes App-logo-spin {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
-} */
-
-.content {
-    width: 960px;
-    margin: 0 auto;
-}
 
 .wrapper {
     margin: 10px auto;
