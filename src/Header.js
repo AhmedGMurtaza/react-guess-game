@@ -19,8 +19,9 @@ const Header = (props) => {
 
 export default Header;
 
-Header.PropTypes = {
+Header.propTypes = {
     target: PropTypes.number,
     sum: PropTypes.number,
     won: PropTypes.number,
     loss: PropTypes.number
+}
