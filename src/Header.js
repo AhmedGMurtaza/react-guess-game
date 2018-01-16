@@ -22,6 +22,5 @@ export default Header;
 Header.PropTypes = {
     target: PropTypes.number,
     sum: PropTypes.number,
-    won: PropTypes.won,
-    loss: PropTypes.loss
-}
+    won: PropTypes.number,
+    loss: PropTypes.number
